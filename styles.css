@@ -1,0 +1,50 @@
+body {
+font-family: Arial, sans-serif;
+margin: 0;
+padding: 0;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+height: 100vh;
+}
+
+h1 {
+text-align: center;
+padding: 20px 0;
+margin: 0; /* Add this to remove any default margins */
+}
+
+h2 {
+text-align: center;
+margin-top: 10px; /* Add some spacing between the h1 and h2 */
+}
+
+#chart {
+margin-top: 20px;
+}
+/* Add styles for the tooltip */
+
+.tooltip {
+position: absolute;
+pointer-events: none;
+background-color: rgba(0, 0, 0, 0.8);
+color: white;
+padding: 10px;
+border-radius: 5px;
+}
+
+.tooltip-title {
+font-weight: bold;
+font-size: 14px;
+}
+
+.tooltip-publish-date {
+font-size: 12px;
+margin-top: 5px;
+}
+
+.dot {
+fill: blue;
+fill-opacity: 0.1;
+}
