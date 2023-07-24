@@ -74,23 +74,34 @@ document.addEventListener("DOMContentLoaded", function() {
       }
   
       // Search functionality
-      d3.select("#searchBox").on("input", function() {
+      d3.select("#searchBox").on("input change", function() {
         const searchText = this.value.trim().toLowerCase();
-        const filteredData = data.filter(d => d.title.toLowerCase().includes(searchText));
+        let filteredData;
   
-        dots.data(filteredData, d => d.title)
-          .join(
-            enter => enter.append("circle")
-              .attr("class", "dot")
-              .attr("cx", d => xScale(d.x))
-              .attr("cy", d => yScale(d.y))
-              .attr("r", 5)
-              .on("mouseover", handleMouseOver)
-              .on("mouseout", handleMouseOut)
-              .on("click", handleClick),
-            update => update,
-            exit => exit.remove()
-          );
+        if (searchText === "") {
+          filteredData = data; // Show all data when the search box is empty
+        } else {
+          filteredData = data.filter(d => d.title.toLowerCase().includes(searchText));
+        }
+  
+        const dotsUpdate = svg.selectAll(".dot")
+          .data(filteredData, d => d.title);
+  
+        dotsUpdate.enter()
+          .append("circle")
+          .attr("class", "dot")
+          .attr("cx", d => xScale(d.x))
+          .attr("cy", d => yScale(d.y))
+          .attr("r", 5)
+          .on("mouseover", handleMouseOver)
+          .on("mouseout", handleMouseOut)
+          .on("click", handleClick);
+  
+        dotsUpdate.exit().remove();
+  
+        dotsUpdate.merge(dots)
+          .attr("cx", d => xScale(d.x))
+          .attr("cy", d => yScale(d.y));
       });
   
     }).catch(function(error) {
