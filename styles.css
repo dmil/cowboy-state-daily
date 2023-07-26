@@ -20,6 +20,10 @@ h2 {
     margin-top: 10px; /* Add some spacing between the h1 and h2 */
 }
 
+input {
+    margin: 10px;
+}
+
 blockquote {
     /* Add some space and style to the blockquote */
     margin: 0 0 1em;

@@ -104,6 +104,12 @@ document.addEventListener("DOMContentLoaded", function() {
           .attr("cy", d => yScale(d.y));
       });
   
+      
+      window.setFilterText = function(text) {
+        d3.select("#searchBox").property("value", text).node().dispatchEvent(new Event("input"));
+      };
+
+
     }).catch(function(error) {
       console.log(error);
     });
