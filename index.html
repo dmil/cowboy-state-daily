@@ -7,32 +7,38 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div id="title">
-    <h1>Explore All Of Cowboy State Daily's Coverage</h1>
-    <p>Articles published by Cowboy State Daily through July 21, 2023.<br/>Articles that are semantically similar appear closer together.</p>
-    <p>Click on a button or type a phrase in the search box below to filter to articles containing the search term in the title. Click on a dot to navigate to the article.</p>
-    <input type="text" id="searchBox" placeholder="Search by Title">
-    <br/>
-    <!-- Add buttons with the specified filter terms -->
-    <button onclick="setFilterText('fossil fuel')">Fossil Fuel</button>
-    <button onclick="setFilterText('climate change')">Climate Change</button>
-    <button onclick="setFilterText('wind')">Wind</button>
-    <button onclick="setFilterText('solar')">Solar</button>
-    <button onclick="setFilterText('oil')">Oil</button>
-    <button onclick="setFilterText('gas')">Gas</button>
-    <button onclick="setFilterText('energy')">Energy</button>
-    <button onclick="setFilterText('coal')">Coal</button>
-  </div>
+  <div class="wrapper">
+    <div id="title">
+      <h1>Explore All Of Cowboy State Daily's Coverage</h1>
+      <p>Articles published by Cowboy State Daily through July 21, 2023.<br/>Articles that are semantically similar appear closer together.</p>
+      <p>Click on a button or type a phrase in the search box below to filter to articles containing the search term in the title. Click on a dot to navigate to the article.</p>
+      <!-- Add a search box and a button for clearing the search -->
+      <div class="search-container">
+        <input type="text" id="searchBox" placeholder="Search by Title">
+        <button id="clearButton">&#10006;</button>
+      </div>
+      <br/>
+      <!-- Add buttons with the specified filter terms -->
+      <button onclick="setFilterText('fossil fuel')">Fossil Fuel</button>
+      <button onclick="setFilterText('climate change')">Climate Change</button>
+      <button onclick="setFilterText('wind')">Wind</button>
+      <button onclick="setFilterText('solar')">Solar</button>
+      <button onclick="setFilterText('oil')">Oil</button>
+      <button onclick="setFilterText('gas')">Gas</button>
+      <button onclick="setFilterText('energy')">Energy</button>
+      <button onclick="setFilterText('coal')">Coal</button>
+    </div>
 
-  <div id="slider"></div>
-  <div id="chart"></div>
-  <div id="methodology-box">
-    <h3>Methodology</h3>
-    <p>Articles were collected from Cowboy State Daily and converted to text embeddings using OpenAI's <a href="https://platform.openai.com/docs/guides/embeddings">embeddings API endpoint</a>. The distances between embeddings were then visualized in a <a href="https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html">two-dimensional t-sne plot</a> using the scikit-learn package in Python. A two-dimenional hoverable scatter plot was then generated in D3 with the help of Open AI's ChatGPT 3.5 using the following prompt:</p>
-    <blockquote>
-      <p>I have a CSV file named vis_dims.csv with the following columns: title, publish_date, website, url, authors, x and y. Show me the code to make a scatterplot in D3 with a tooltip. Each dot should be placed at x,y. When a user hovers on the tooltip, they should see the title and publish date. When they click on a dot, it should navigate to the url. And please add a search box that will let users filter by searching the title column.
-      </p>
-    </blockquote>
+    <div id="slider"></div>
+    <div id="chart"></div>
+    <div id="methodology-box">
+      <h3>Methodology</h3>
+      <p>Articles were collected from Cowboy State Daily and converted to text embeddings using OpenAI's <a href="https://platform.openai.com/docs/guides/embeddings">embeddings API endpoint</a>. The distances between embeddings were then visualized in a <a href="https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html">two-dimensional t-sne plot</a> using the scikit-learn package in Python. A two-dimenional hoverable scatter plot was then generated in D3 with the help of Open AI's ChatGPT 3.5 using the following prompt:</p>
+      <blockquote>
+        <p>I have a CSV file named vis_dims.csv with the following columns: title, publish_date, website, url, authors, x and y. Show me the code to make a scatterplot in D3 with a tooltip. Each dot should be placed at x,y. When a user hovers on the tooltip, they should see the title and publish date. When they click on a dot, it should navigate to the url. And please add a search box that will let users filter by searching the title column.
+        </p>
+      </blockquote>
+    </div>
   </div>
   <script src="https://d3js.org/d3.v5.min.js"></script>
   <script src="script.js"></script>

@@ -1,10 +1,11 @@
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    /* display: flex;
-    flex-direction: column; */
-    align-items: center;
+    /* margin: 0; */
+    /* margin-right: 30%;  Adjust the left margin as per your preference */
+    /* padding: 0; */
+    /* /* display: flex; */
+    flex-direction: column; /* Add this to align the content vertically */
+    align-items: left;
     justify-content: center;
     height: 100vh;
 }
@@ -33,8 +34,12 @@ blockquote {
 }
 
 #title {
-    padding: 0 10%;
+    padding: 0 10% 0 0;
+    margin:  0 10% 0 0;
     text-align: center;
+    max-width: 800px;
+    justify-content: center; /* Horizontally center the .search-container */
+    align-items: center; /* Vertically center the .search-container */
 }
 
 #title p {
@@ -44,13 +49,14 @@ blockquote {
 }
 
 #methodology-box {
-    padding: 0 10% 10% 10%;
+    padding: 0 10% 0 0;
+    max-width: 800px;
 }
 
 /* Styles for the chart container */
 #chart {
     position: relative;
-    margin: 0 auto;
+    margin: 0 10% 0 0;
     max-width: 800px;
   }
 /* Add styles for the tooltip */
@@ -78,3 +84,26 @@ blockquote {
     fill: blue;
     fill-opacity: 0.1;
 }
+
+/* Style for the search box and clear button container */
+.search-container {
+    position: relative;
+    flex-direction: row; /* Stack the items vertically */
+    align-items: center; /* Center the items horizontally within .search-container */
+    margin: 0 auto;
+}
+
+/* Style for the clear button */
+#clearButton {
+    /* position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%); */
+    font-size: 16px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #777;
+    /* display: block; */
+}
+  

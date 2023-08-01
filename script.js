@@ -72,16 +72,16 @@ document.addEventListener("DOMContentLoaded", function() {
       function handleClick(d) {
         window.open(d.url, "_blank");
       }
-  
-      // Search functionality
-      d3.select("#searchBox").on("input change", function() {
-        const searchText = this.value.trim().toLowerCase();
+
+      // Create fucntion to filter datapoints based on text box contents
+      function filterData() {
+        const searchText = this.value;
         let filteredData;
   
-        if (searchText === "") {
+        if (searchText === "" | searchText === undefined) {
           filteredData = data; // Show all data when the search box is empty
         } else {
-          filteredData = data.filter(d => d.title.toLowerCase().includes(searchText));
+          filteredData = data.filter(d => d.title.toLowerCase().includes(searchText.trim().toLowerCase()));
         }
   
         const dotsUpdate = svg.selectAll(".dot")
@@ -102,13 +102,21 @@ document.addEventListener("DOMContentLoaded", function() {
         dotsUpdate.merge(dots)
           .attr("cx", d => xScale(d.x))
           .attr("cy", d => yScale(d.y));
-      });
+      };
+  
+      // Search functionality
+      d3.select("#searchBox").on("input change", filterData);
   
       
       window.setFilterText = function(text) {
         d3.select("#searchBox").property("value", text).node().dispatchEvent(new Event("input"));
       };
 
+      // Event listener for the clear button
+      document.getElementById("clearButton").addEventListener("click", function() {
+        document.getElementById("searchBox").value = ""; // Clear the search box
+        filterData(); // Reset the chart
+      });
 
     }).catch(function(error) {
       console.log(error);
