@@ -5,7 +5,7 @@ body {
     /* padding: 0; */
     /* /* display: flex; */
     flex-direction: column; /* Add this to align the content vertically */
-    align-items: left;
+    align-items: center;
     justify-content: center;
     height: 100vh;
 }
@@ -37,7 +37,7 @@ blockquote {
     padding: 0 10%;
     margin:  0 auto;
     text-align: center;
-    max-width: 800px;
+    max-width: 1000px;
     justify-content: center; /* Horizontally center the .search-container */
     align-items: center; /* Vertically center the .search-container */
 }
@@ -51,14 +51,17 @@ blockquote {
 #methodology-box {
     padding: 0 auto;
     margin: 0 auto;
-    max-width: 800px;
+    max-width: 1000px;
 }
 
 /* Styles for the chart container */
-#chart {
-    position: relative;
-    margin: 0 auto;
-    max-width: 800px;
+div#chart {
+    padding: 0 10%;
+    margin:  0 auto;
+    text-align: center;
+    max-width: 1000px;
+    justify-content: center; /* Horizontally center the .search-container */
+    align-items: center; /* Vertically center the .search-container */
   }
 /* Add styles for the tooltip */
 
