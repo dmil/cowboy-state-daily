@@ -9,8 +9,8 @@ document.addEventListener("DOMContentLoaded", function() {
       });
   
       const margin = { top: 60, right: 30, bottom: 40, left: 50 };
-      const width = 1000 - margin.left - margin.right;
-      const height = 625 - margin.top - margin.bottom;
+      const width = 800 - margin.left - margin.right;
+      const height = 500 - margin.top - margin.bottom;
   
       // Create SVG element
       const svg = d3.select("#chart")
