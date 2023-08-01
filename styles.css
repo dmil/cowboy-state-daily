@@ -34,8 +34,8 @@ blockquote {
 }
 
 #title {
-    padding: 0 10% 0 0;
-    margin:  0 10% 0 0;
+    padding: 0 10%;
+    margin:  0 auto;
     text-align: center;
     max-width: 800px;
     justify-content: center; /* Horizontally center the .search-container */
@@ -49,14 +49,15 @@ blockquote {
 }
 
 #methodology-box {
-    padding: 0 10% 0 0;
+    padding: 0 auto;
+    margin: 0 auto;
     max-width: 800px;
 }
 
 /* Styles for the chart container */
 #chart {
     position: relative;
-    margin: 0 10% 0 0;
+    margin: 0 auto;
     max-width: 800px;
   }
 /* Add styles for the tooltip */
