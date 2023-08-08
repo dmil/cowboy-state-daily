@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", function() {
         .on("mouseover", handleMouseOver)
         .on("mouseout", handleMouseOut)
         .on("click", handleClick);
-  
+
       // Tooltip functions
 
       // Function to hide the tooltip
@@ -161,10 +161,67 @@ document.addEventListener("DOMContentLoaded", function() {
           .attr("cx", d => xScale(d.x))
           .attr("cy", d => yScale(d.y));
       };
+
+      // Function to format the publish date as "YYYY-MM-DD"
+      function formatDate(date) {
+        const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+        return new Date(date).toLocaleDateString(undefined, options);
+      }
+
+      // Function to highlight the search query within the title
+      function highlightTitle(title) {
+        const searchText = document.getElementById("searchBox").value.trim().toLowerCase();
+        const regex = new RegExp(searchText, "gi");
+        return title.replace(regex, match => `<span class="highlight">${match}</span>`);
+      }
+
+      // Function to update the table with filtered data
+      function updateHeadlineTable(filteredData) {
+        const tableBody = d3.select("#headline-table-body");
+
+        // Remove existing rows from the table
+        tableBody.selectAll("tr").remove();
+        
+        // Sort the filtered data by publish_date in descending order
+        filteredData.sort((a, b) => new Date(b.publish_date) - new Date(a.publish_date));
+
+        // Create new rows for each data point and populate the table
+        const rows = tableBody.selectAll("tr")
+          .data(filteredData)
+          .enter()
+          .append("tr");
+
+        // Populate the rows with title and publish_date information
+        rows.append("td").html(d => highlightTitle(d.title)); // Use the highlightTitle function
+        rows.append("td").text(d => formatDate(d.publish_date));
+      }
   
+      // Function to clear the data from the table and hide it
+      function clearHeadlineTable() {
+        console.log("clearHeadlineTable");
+        const tableBody = d3.select("#headline-table-body");
+        tableBody.selectAll("tr").remove();
+        d3.select("#headline-table").classed("hidden", true);
+      }
+
+      // show headline table
+      function showHeadlineTable() {
+        console.log("showHeadlineTable");
+        d3.select("#headline-table").classed("hidden", false);
+      }
+
+      // Load the data
       function updateFilter(){
+        const searchText = document.getElementById("searchBox").value.trim().toLowerCase();
         filteredData = filterData.call(this);
         updateScatterPlot(filteredData);
+        if(searchText){
+          updateHeadlineTable(filteredData);
+          showHeadlineTable();
+        }
+        else {
+          clearHeadlineTable();
+        }
       }
 
       // Search functionality
@@ -178,9 +235,10 @@ document.addEventListener("DOMContentLoaded", function() {
       // Event listener for the clear button
       document.getElementById("clearButton").addEventListener("click", function() {
         document.getElementById("searchBox").value = ""; // Clear the search box
-        updateFilter();
+        filteredData = filterData.call(this);
+        updateScatterPlot(filteredData);
+        clearHeadlineTable();
       });
-
     }).catch(function(error) {
       console.log(error);
     });

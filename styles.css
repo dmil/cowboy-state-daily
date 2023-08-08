@@ -1,9 +1,5 @@
 body {
     font-family: Arial, sans-serif;
-    /* margin: 0; */
-    /* margin-right: 30%;  Adjust the left margin as per your preference */
-    /* padding: 0; */
-    /* /* display: flex; */
     flex-direction: column; /* Add this to align the content vertically */
     align-items: center;
     justify-content: center;
@@ -48,6 +44,15 @@ blockquote {
     margin-right: 10%;
 }
 
+#title > p.instructions {
+    /* italics */
+    font-style: italic;
+    /* smaller font */
+    font-size: 14px;   
+    margin: auto; 
+    padding: 10px;
+}
+
 #methodology-box {
     padding: 0 auto;
     margin: 0 auto;
@@ -89,6 +94,12 @@ div#chart {
     fill-opacity: 0.1;
 }
 
+
+.hidden {
+    display: none;
+}
+
+
 /* Style for the search box and clear button container */
 .search-container {
     position: relative;
@@ -110,4 +121,68 @@ div#chart {
     color: #777;
     /* display: block; */
 }
+
+/* Style for highlighted search query */
+.highlight {
+    background-color: yellow;
+  }
+
+/* Scrollable headline table */
+#headline-table {
+    max-height: 400px; /* Set a maximum height for the table */
+    max-width: 800px;
+    overflow-y: scroll; /* Enable vertical scrolling */
+    scrollbar-width: thin; /* Set the width of the scrollbar */
+    scrollbar-color: #888 #f0f0f0; /* Set the color of the scrollbar */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto; /* Center horizontally */
+    border: 1px solid #ccc; /* Add a border to indicate scrollable area */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a shadow to indicate scrollable area */
+  }
+  
+  /* Left-align table headers */
+  #headline-table th {
+    text-align: left;
+  }
+  /* Left-align table headers */
+#headline-table th {
+    text-align: left;
+    background-color: #f0f0f0; /* Background color for the sticky header */
+    position: sticky;
+    top: 0; /* Stick the header to the top of the container */
+    z-index: 1; /* Ensure header appears above content */
+  }
+/* Show the scrollbar always */
+#headline-table::-webkit-scrollbar {
+    width: 8px; /* Set the width of the scrollbar */
+}
+#headline-table::-webkit-scrollbar-thumb {
+    background-color: #888; /* Set the color of the scrollbar thumb */
+    border-radius: 4px; /* Rounded corners for the thumb */
+}
+
+#headline-table::-webkit-scrollbar-track {
+    background-color: #f0f0f0; /* Set the color of the scrollbar track */
+}
+
+  
+  /* Stack table rows on mobile */
+  @media screen and (max-width: 768px) {
+    #headline-table table {
+      display: block;
+    }
+  
+    #headline-table tr {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-bottom: 10px;
+    }
+  
+    #headline-table td {
+      width: 100%;
+    }
+  }
   

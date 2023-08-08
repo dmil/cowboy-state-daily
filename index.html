@@ -11,25 +11,39 @@
     <div id="title">
       <h1>Explore All Of Cowboy State Daily's Coverage</h1>
       <p>Articles published by Cowboy State Daily through July 21, 2023.<br/>Articles that are semantically similar appear closer together.</p>
-      <p>Click on a button or type a phrase in the search box below to filter to articles containing the search term in the title. Click on a dot to navigate to the article.</p>
-      <!-- Add a search box and a button for clearing the search -->
-      <div class="search-container">
-        <input type="text" id="searchBox" placeholder="Search by Title">
-        <button id="clearButton">&#10006;</button>
-      </div>
+      
       <br/>
       <!-- Add buttons with the specified filter terms -->
-      <button onclick="setFilterText('fossil fuel')">Fossil Fuel</button>
       <button onclick="setFilterText('climate change')">Climate Change</button>
+      <button onclick="setFilterText('fossil fuel')">Fossil Fuel</button>
       <button onclick="setFilterText('wind')">Wind</button>
       <button onclick="setFilterText('solar')">Solar</button>
       <button onclick="setFilterText('oil')">Oil</button>
       <button onclick="setFilterText('gas')">Gas</button>
       <button onclick="setFilterText('energy')">Energy</button>
       <button onclick="setFilterText('coal')">Coal</button>
+      
+      <!-- Add a search box and a button for clearing the search -->
+      <p class="instructions">Click on a button or type a phrase in the search box.</p>
+      <div class="search-container">
+        <input type="text" id="searchBox" placeholder="Search by Title">
+        <button id="clearButton">&#10006;</button>
+      </div>
     </div>
 
     <div id="chart"></div>
+    <div id="headline-table" class="hidden">
+      <table>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody id="headline-table-body"></tbody>
+      </table>
+    </div>
+    
     <div id="methodology-box">
       <h3>Methodology</h3>
       <p>Articles were collected from Cowboy State Daily and converted to text embeddings using OpenAI's <a href="https://platform.openai.com/docs/guides/embeddings">embeddings API endpoint</a>. The distances between embeddings were then visualized in a <a href="https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html">two-dimensional t-sne plot</a> using the scikit-learn package in Python. A two-dimenional hoverable scatter plot was then generated in D3 with the help of Open AI's ChatGPT 3.5 using the following prompt:</p>
