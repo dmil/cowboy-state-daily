@@ -96,7 +96,9 @@ document.addEventListener("DOMContentLoaded", function() {
     
     function handleMouseOver(d) {
       d3.select(this)
-        .attr("r", 8);
+        .attr("r", 10)
+        .style("fill-opacity", 0.8)
+        .style("fill", "orange");
 
       tooltip = d3.select("body")
         .append("div")
@@ -115,7 +117,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function handleMouseOut() {
       d3.select(this)
-        .attr("r", 5);
+        .attr("r", 5)
+        .style("fill-opacity", 0.4)
+        .style("fill", "blue");
 
       d3.select(".tooltip").remove();
     }
@@ -224,7 +228,7 @@ document.addEventListener("DOMContentLoaded", function() {
           d3.select(this)
             .attr("r", 10)
             .style("fill", "orange")
-            .style("fill-opacity", .4);
+            .style("fill-opacity", 0.8);
 
           const correspondingRow = d3.select(`#headline-table tbody tr[data-title="${dataPoint.title}"]`);
           correspondingRow
@@ -243,7 +247,7 @@ document.addEventListener("DOMContentLoaded", function() {
         correspondingDot.each(function(d) {
           d3.select(this)
             .style("fill", "blue")
-            .style("fill-opacity", 0.1)
+            .style("fill-opacity", 0.4)
             .attr("r", 5);
         
           const correspondingRow = d3.select(`#headline-table tbody tr[data-title="${dataPoint.title}"]`);
@@ -255,7 +259,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Function to clear the data from the table and hide it
     function clearHeadlineTable() {
-      console.log("clearHeadlineTable");
       const tableBody = d3.select("#headline-table-body");
       tableBody.selectAll("tr").remove();
       d3.select("#headline-table").classed("hidden", true);
@@ -263,7 +266,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // show headline table
     function showHeadlineTable() {
-      console.log("showHeadlineTable");
       d3.select("#headline-table").classed("hidden", false);
     }
 
