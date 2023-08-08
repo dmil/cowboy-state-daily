@@ -140,21 +140,18 @@ div#chart {
     margin: 0 auto; /* Center horizontally */
     border: 1px solid #ccc; /* Add a border to indicate scrollable area */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a shadow to indicate scrollable area */
-  }
-  
+}
+
   /* Left-align table headers */
   #headline-table th {
-    text-align: left;
-  }
-  /* Left-align table headers */
-#headline-table th {
     text-align: left;
     background-color: #f0f0f0; /* Background color for the sticky header */
     position: sticky;
     top: 0; /* Stick the header to the top of the container */
     z-index: 1; /* Ensure header appears above content */
   }
-/* Show the scrollbar always */
+
+  /* Show the scrollbar always */
 #headline-table::-webkit-scrollbar {
     width: 8px; /* Set the width of the scrollbar */
 }
@@ -168,21 +165,31 @@ div#chart {
 }
 
   
-  /* Stack table rows on mobile */
-  @media screen and (max-width: 768px) {
+/* Stack table rows on mobile */
+@media screen and (max-width: 768px) {
     #headline-table table {
-      display: block;
+        display: block;
     }
-  
+
     #headline-table tr {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      margin-bottom: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-bottom: 10px;
     }
-  
+
     #headline-table td {
-      width: 100%;
+        width: 100%;
     }
-  }
-  
+}
+
+.highlighted-dot {
+    fill: orange;
+    fill-opacity: .8;
+    stroke:#333;
+    border: black 1px solid;
+}
+
+.highlighted-row {
+    background-color: rgba(255, 165, 0, 0.4);
+}

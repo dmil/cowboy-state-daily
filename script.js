@@ -97,8 +97,7 @@ document.addEventListener("DOMContentLoaded", function() {
     function handleMouseOver(d) {
       d3.select(this)
         .attr("r", 10)
-        .style("fill-opacity", 0.8)
-        .style("fill", "orange");
+        .classed("highlighted-dot", true)
 
       tooltip = d3.select("body")
         .append("div")
@@ -118,8 +117,7 @@ document.addEventListener("DOMContentLoaded", function() {
     function handleMouseOut() {
       d3.select(this)
         .attr("r", 5)
-        .style("fill-opacity", 0.4)
-        .style("fill", "blue");
+        .classed("highlighted-dot", false)
 
       d3.select(".tooltip").remove();
     }
@@ -227,12 +225,11 @@ document.addEventListener("DOMContentLoaded", function() {
         correspondingDot.each(function(d) {
           d3.select(this)
             .attr("r", 10)
-            .style("fill", "orange")
-            .style("fill-opacity", 0.8);
+            .classed("highlighted-dot", true);
 
           const correspondingRow = d3.select(`#headline-table tbody tr[data-title="${dataPoint.title}"]`);
           correspondingRow
-            .style("background-color", "rgba(255, 165, 0, 0.4)");
+            .classed("highlighted-row", true)
         });
       }
     }
@@ -246,13 +243,11 @@ document.addEventListener("DOMContentLoaded", function() {
         // loop through correspondingDot
         correspondingDot.each(function(d) {
           d3.select(this)
-            .style("fill", "blue")
-            .style("fill-opacity", 0.4)
+            .classed("highlighted-dot", false)
             .attr("r", 5);
         
           const correspondingRow = d3.select(`#headline-table tbody tr[data-title="${dataPoint.title}"]`);
-          correspondingRow.style("background-color", "white");    
-          
+          correspondingRow.classed("highlighted-row", false);    
         });
       }
     }
