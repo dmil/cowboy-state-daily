@@ -129,7 +129,7 @@ document.addEventListener("DOMContentLoaded", function() {
         if (searchText === "" | searchText === undefined) {
           filteredData = data; // Show all data when the search box is empty
         } else if (searchText=== "wind") {
-          console.log("you filtered for wind");
+          console.log("exclude 'wind river'");
           const regexPattern = new RegExp(`\\b${searchText.trim()}\\b`, 'i');
           filteredData = data.filter(d => regexPattern.test(d.title));
           filteredData = filteredData.filter(d => !d.title.toLowerCase().includes("wind river"));
