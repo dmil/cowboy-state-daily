@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", function() {
       const width = 800 - margin.left - margin.right;
       const height = 500 - margin.top - margin.bottom;
       let tooltip;
+      let filteredData;
 
       // Create SVG element
       const svg = d3.select("#chart")
@@ -59,7 +60,6 @@ document.addEventListener("DOMContentLoaded", function() {
       
         // Filter the data to find the data point with the specified title
         const dataPoint = data.find(d => d.title === title);
-        console.log(dataPoint)
 
         // Get the position of the chart
         const chartContainer = document.getElementById("chart");
@@ -127,17 +127,20 @@ document.addEventListener("DOMContentLoaded", function() {
         let filteredData;
   
         if (searchText === "" | searchText === undefined) {
-          filteredData = data; // Show all data when the search box is empty
+          return data; // Show all data when the search box is empty
         } else if (searchText=== "wind") {
           console.log("exclude 'wind river'");
           const regexPattern = new RegExp(`\\b${searchText.trim()}\\b`, 'i');
           filteredData = data.filter(d => regexPattern.test(d.title));
-          filteredData = filteredData.filter(d => !d.title.toLowerCase().includes("wind river"));
+          return filteredData.filter(d => !d.title.toLowerCase().includes("wind river"));
         }
         else {
           const regexPattern = new RegExp(`\\b${searchText.trim()}\\b`, 'i');
-          filteredData = data.filter(d => regexPattern.test(d.title));
+          return data.filter(d => regexPattern.test(d.title));
         }
+      };
+
+      function updateScatterPlot(filteredData) {
   
         const dotsUpdate = svg.selectAll(".dot")
           .data(filteredData, d => d.title);
@@ -159,10 +162,15 @@ document.addEventListener("DOMContentLoaded", function() {
           .attr("cy", d => yScale(d.y));
       };
   
+      function updateFilter(){
+        filteredData = filterData.call(this);
+        updateScatterPlot(filteredData);
+      }
+
       // Search functionality
-      d3.select("#searchBox").on("input change", filterData);
+      d3.select("#searchBox").on("input change", updateFilter);
   
-      
+      // Event listener for the set filter button
       window.setFilterText = function(text) {
         d3.select("#searchBox").property("value", text).node().dispatchEvent(new Event("input"));
       };
@@ -170,7 +178,7 @@ document.addEventListener("DOMContentLoaded", function() {
       // Event listener for the clear button
       document.getElementById("clearButton").addEventListener("click", function() {
         document.getElementById("searchBox").value = ""; // Clear the search box
-        filterData(); // Reset the chart
+        updateFilter();
       });
 
     }).catch(function(error) {
