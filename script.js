@@ -221,8 +221,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
         // loop through correspondingDot
         correspondingDot.each(function(d) {
-          console.log(d.x, d.y);
-          // make d red
           d3.select(this)
             .attr("r", 10)
             .style("fill", "orange")
@@ -243,8 +241,6 @@ document.addEventListener("DOMContentLoaded", function() {
           .filter(d => d.title === dataPoint.title);
         // loop through correspondingDot
         correspondingDot.each(function(d) {
-          console.log(d.x, d.y);
-          // make d red
           d3.select(this)
             .style("fill", "blue")
             .style("fill-opacity", 0.1)
