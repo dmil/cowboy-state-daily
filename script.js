@@ -11,7 +11,8 @@ document.addEventListener("DOMContentLoaded", function() {
       const margin = { top: 60, right: 30, bottom: 40, left: 50 };
       const width = 800 - margin.left - margin.right;
       const height = 500 - margin.top - margin.bottom;
-  
+      let tooltip;
+
       // Create SVG element
       const svg = d3.select("#chart")
         .append("svg")
@@ -42,11 +43,58 @@ document.addEventListener("DOMContentLoaded", function() {
         .on("click", handleClick);
   
       // Tooltip functions
+
+      // Function to hide the tooltip
+      function hideTooltip() {
+        if (tooltip) {
+          tooltip.remove();
+          tooltip = null;
+        }
+      }
+
+      // Function to show the tooltip for a specific title
+      window.showTooltipForTitle = function(title) {
+        // Hide any existing tooltip
+        hideTooltip();
+      
+        // Filter the data to find the data point with the specified title
+        const dataPoint = data.find(d => d.title === title);
+        console.log(dataPoint)
+
+        // Get the position of the chart
+        const chartContainer = document.getElementById("chart");
+        const chartRect = chartContainer.getBoundingClientRect();
+        const chartX = chartRect.left;
+        const chartY = chartRect.top;
+
+        // Calculate the tooltip position relative to the chart
+        const tooltipX = dataPoint.x + chartX + 10;
+        const tooltipY = dataPoint.y + chartY - 10;
+      
+        // Show the tooltip for the data point
+        if (dataPoint) {
+          tooltip = d3.select("body")
+            .append("div")
+            .attr("class", "tooltip")
+            .text(dataPoint.title)
+            .style("left", (tooltipX) + "px")
+            .style("top", (tooltipY) + "px");
+
+          tooltip.append("div")
+            .attr("class", "tooltip-title")
+            .text(dataPoint.title);
+    
+          tooltip.append("div")
+            .attr("class", "tooltip-publish-date")
+            .text("Published on " + dataPoint.publish_date.toDateString());
+        }
+      }
+      
       function handleMouseOver(d) {
         d3.select(this)
           .attr("r", 8);
   
-        const tooltip = d3.select("body")
+        tooltip = d3.select("body")
           .append("div")
           .attr("class", "tooltip")
           .style("left", (d3.event.pageX + 10) + "px")
@@ -80,8 +128,15 @@ document.addEventListener("DOMContentLoaded", function() {
   
         if (searchText === "" | searchText === undefined) {
           filteredData = data; // Show all data when the search box is empty
-        } else {
-          filteredData = data.filter(d => d.title.toLowerCase().includes(searchText.trim().toLowerCase()));
+        } else if (searchText=== "wind") {
+          console.log("you filtered for wind");
+          const regexPattern = new RegExp(`\\b${searchText.trim()}\\b`, 'i');
+          filteredData = data.filter(d => regexPattern.test(d.title));
+          filteredData = filteredData.filter(d => !d.title.toLowerCase().includes("wind river"));
+        }
+        else {
+          const regexPattern = new RegExp(`\\b${searchText.trim()}\\b`, 'i');
+          filteredData = data.filter(d => regexPattern.test(d.title));
         }
   
         const dotsUpdate = svg.selectAll(".dot")
