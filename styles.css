@@ -100,7 +100,7 @@ div#chart {
 
 .dot.unfiltered-dot {
     fill: gray;
-    fill-opacity: 0.05;
+    fill-opacity: 0.01;
 }
 
 .filtered-dot {
