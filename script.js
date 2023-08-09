@@ -6,98 +6,57 @@ document.addEventListener("DOMContentLoaded", function() {
     data.forEach(function(d) {
       d.x = +d.x;
       d.y = +d.y;
+      d.id = +d.id;
       d.publish_date = new Date(d.publish_date); // Convert publish_date to Date object
-  });
-  
-  // set initial variables
-  const margin = { top: 60, right: 30, bottom: 40, left: 50 };
-  const width = 800 - margin.left - margin.right;
-  const height = 500 - margin.top - margin.bottom;
-  let tooltip;
-  let filteredData;
+    });
 
-  // DRAW CHART
-  // Create SVG element
-  const svg = d3.select("#chart")
-    .append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    // set initial variables
+    const margin = {
+      top: 60,
+      right: 30,
+      bottom: 40,
+      left: 50
+    };
+    const widthRaw = 800;
+    const heightRaw = widthRaw / 8 * 5;
+    const width = widthRaw - margin.left - margin.right;
+    const height = heightRaw - margin.top - margin.bottom;
+    let tooltip;
+    let searchText = document.getElementById("searchBox").value.trim().toLowerCase();
 
-  // Create scales
-  const xScale = d3.scaleLinear()
-    .domain(d3.extent(data, d => d.x))
-    .range([0, width]);
+    /* DRAW CHART */
+    // Create SVG element
+    const svg = d3.select("#chart")
+      .append("svg")
+      .attr("width", width + margin.left + margin.right)
+      .attr("height", height + margin.top + margin.bottom)
+      .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-  const yScale = d3.scaleLinear()
-    .domain(d3.extent(data, d => d.y))
-    .range([height, 0]);
+    // Create scales
+    const xScale = d3.scaleLinear()
+      .domain(d3.extent(data, d => d.x))
+      .range([0, width]);
 
-  // Create dots
-  const dots = svg.selectAll(".dot")
-    .data(data)
-    .enter().append("circle")
-    .attr("class", "dot")
-    .attr("cx", d => xScale(d.x))
-    .attr("cy", d => yScale(d.y))
-    .attr("r", 5)
-    .attr("title", d => d.title)
-    .on("mouseover", handleMouseOver)
-    .on("mouseout", handleMouseOut);
+    const yScale = d3.scaleLinear()
+      .domain(d3.extent(data, d => d.y))
+      .range([height, 0]);
 
-    // Tooltip functions
+    // Create dots
+    const dots = svg.selectAll(".dot")
+      .data(data)
+      .enter().append("circle")
+      .attr("class", "dot")
+      .attr("cx", d => xScale(d.x))
+      .attr("cy", d => yScale(d.y))
+      .attr("r", 5)
+      .attr("title", d => d.title)
+      .on("mouseover", handleMouseOver)
+      .on("mouseout", handleMouseOut);
 
-    // Function to hide the tooltip
-    function hideTooltip() {
-      if (tooltip) {
-        tooltip.remove();
-        tooltip = null;
-      }
-    }
+    /* Tooltip functions */
 
-    // Function to show the tooltip for a specific title
-    window.showTooltipForTitle = function(title) {
-      // Hide any existing tooltip
-      hideTooltip();
-    
-      // Filter the data to find the data point with the specified title
-      const dataPoint = data.find(d => d.title === title);
-
-      // Get the position of the chart
-      const chartContainer = document.getElementById("chart");
-      const chartRect = chartContainer.getBoundingClientRect();
-      const chartX = chartRect.left;
-      const chartY = chartRect.top;
-
-      // Calculate the tooltip position relative to the chart
-      const tooltipX = dataPoint.x + chartX + 10;
-      const tooltipY = dataPoint.y + chartY - 10;
-    
-      // Show the tooltip for the data point
-      if (dataPoint) {
-        tooltip = d3.select("body")
-          .append("div")
-          .attr("class", "tooltip")
-          .text(dataPoint.title)
-          .style("left", (tooltipX) + "px")
-          .style("top", (tooltipY) + "px");
-
-        tooltip.append("div")
-          .attr("class", "tooltip-title")
-          .text(dataPoint.title);
-  
-        tooltip.append("div")
-          .attr("class", "tooltip-publish-date")
-          .text("Published on " + dataPoint.publish_date.toDateString());
-      }
-    }
-    
-    function handleMouseOver(d) {
-      d3.select(this)
-        .attr("r", 10)
-        .classed("highlighted-dot", true)
-
+    function makeTooltip(d) {
       tooltip = d3.select("body")
         .append("div")
         .attr("class", "tooltip")
@@ -113,75 +72,122 @@ document.addEventListener("DOMContentLoaded", function() {
         .text("Published on " + d.publish_date.toDateString());
     }
 
-    function handleMouseOut() {
+    function handleMouseOver(d) {
+      d.selected = true;
+
+      // make the dot bigger and highlight it
+      d3.select(this)
+        .attr("r", 10)
+        .classed("highlighted-dot", true)
+        .raise();
+
+      // make tooltip
+      makeTooltip(d);
+    }
+
+    function handleMouseOut(d) {
+      d.selected = false;
+
+      // make the dot smaller and remove highlight
       d3.select(this)
         .attr("r", 5)
         .classed("highlighted-dot", false)
 
+      // remove tooltip
       d3.select(".tooltip").remove();
+    }
+
+    function clearScatterPlot() {
+      // remove unfiltered-dot class from everything
+      filterData();
+      updateScatterPlot();
     }
 
     // Create fucntion to filter datapoints based on text box contents
     function filterData() {
-      const searchText = this.value;
-      let filteredData;
-
       if (searchText === "" | searchText === undefined) {
-        return data; // Show all data when the search box is empty
-      } else if (searchText=== "wind") {
+        // remove selected property from all data points
+        data.forEach(d => delete d.selected);
+      } else if (searchText === "wind") {
         console.log("exclude 'wind river'");
         const regexPattern = new RegExp(`\\b${searchText.trim()}\\b`, 'i');
-        filteredData = data.filter(d => regexPattern.test(d.title));
-        return filteredData.filter(d => !d.title.toLowerCase().includes("wind river"));
-      }
-      else {
+        // if the title matches the regex pattern and excludes the phrase "wind river", add the selected property
+        data.forEach(d => {
+          if (regexPattern.test(d.title) && !d.title.toLowerCase().includes("wind river")) {
+            d.selected = true;
+          } else {
+            delete d.selected;
+          }
+        })
+      } else {
         const regexPattern = new RegExp(`\\b${searchText.trim()}\\b`, 'i');
-        return data.filter(d => regexPattern.test(d.title));
+        // if the title matches the regex pattern, add the selected property
+        data.forEach(d => {
+          if (regexPattern.test(d.title)) {
+            d.selected = true;
+          } else {
+            delete d.selected;
+          }
+        })
       }
     };
 
-    function updateScatterPlot(filteredData) {
+    function updateSearchText() {
+      searchText = document.getElementById("searchBox").value.trim().toLowerCase();
+    }
 
-      const dotsUpdate = svg.selectAll(".dot")
-        .data(filteredData, d => d.title);
+    function updateScatterPlot() {
 
-      dotsUpdate.enter()
-        .append("circle")
-        .attr("class", "dot")
-        .attr("cx", d => xScale(d.x))
-        .attr("cy", d => yScale(d.y))
-        .attr("r", 5)
-        .on("mouseover", handleMouseOver)
-        .on("mouseout", handleMouseOut);
+      if (searchText === "" | searchText === undefined) {
+        // show all dots and allow hover, remove filtered-dot class from everything
+        d3.selectAll(".dot")
+          .classed("filtered-dot", false)
+          .classed("unfiltered-dot", false)
+          .on("mouseover", handleMouseOver)
+          .on("mouseout", handleMouseOut)
+          .raise();
+      } else {
+        // color the filtred dots, only allow hover on filtered dots
+        dots
+          .on("mouseover", null)
+          .on("mouseout", null)
+          .classed("filtered-dot", d => d.selected)
+          .classed("unfiltered-dot", d => !d.selected);
+          
+        d3.selectAll(".dot.filtered-dot")
+          .on("mouseover", handleMouseOver)
+          .on("mouseout", handleMouseOut)
+          .raise();
+      }
 
-      dotsUpdate.exit().remove();
-
-      dotsUpdate.merge(dots)
-        .attr("cx", d => xScale(d.x))
-        .attr("cy", d => yScale(d.y));
     };
 
     // Function to format the publish date as "YYYY-MM-DD"
     function formatDate(date) {
-      const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+      const options = {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+      };
       return new Date(date).toLocaleDateString(undefined, options);
     }
 
     // Function to highlight the search query within the title
     function highlightTitle(title) {
-      const searchText = document.getElementById("searchBox").value.trim().toLowerCase();
+      searchText = document.getElementById("searchBox").value.trim().toLowerCase();
       const regex = new RegExp(searchText, "gi");
       return title.replace(regex, match => `<span class="highlight">${match}</span>`);
     }
 
     // Function to update the table with filtered data
-    function updateHeadlineTable(filteredData) {
+    function updateHeadlineTable() {
       const tableBody = d3.select("#headline-table-body");
 
       // Remove existing rows from the table
       tableBody.selectAll("tr").remove();
-      
+
       // Sort the filtered data by publish_date in descending order
+      const filteredData = data.filter(d => d.selected);
       filteredData.sort((a, b) => new Date(b.publish_date) - new Date(a.publish_date));
 
       // Create new rows for each data point and populate the table
@@ -208,7 +214,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function handleRowMouseOver(dataPoint) {
-
+      dataPoint.selected = true;
       if (dataPoint) {
         // Change the color of the corresponding dot
         const correspondingDot = svg.selectAll(".dot")
@@ -218,7 +224,8 @@ document.addEventListener("DOMContentLoaded", function() {
         correspondingDot.each(function(d) {
           d3.select(this)
             .attr("r", 10)
-            .classed("highlighted-dot", true);
+            .classed("highlighted-dot", true)
+            .raise();
 
           const correspondingRow = d3.select(`#headline-table tbody tr[data-title="${dataPoint.title}"]`);
           correspondingRow
@@ -226,9 +233,9 @@ document.addEventListener("DOMContentLoaded", function() {
         });
       }
     }
-    
+
     function handleRowMouseOut(dataPoint) {
-    
+      dataPoint.selected = false;
       if (dataPoint) {
         // Change the color of the corresponding dot back to its original color
         const correspondingDot = svg.selectAll(".dot")
@@ -238,9 +245,9 @@ document.addEventListener("DOMContentLoaded", function() {
           d3.select(this)
             .classed("highlighted-dot", false)
             .attr("r", 5);
-        
+
           const correspondingRow = d3.select(`#headline-table tbody tr[data-title="${dataPoint.title}"]`);
-          correspondingRow.classed("highlighted-row", false);    
+          correspondingRow.classed("highlighted-row", false);
         });
       }
     }
@@ -258,22 +265,21 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Load the data
-    function updateFilter(){
-      const searchText = document.getElementById("searchBox").value.trim().toLowerCase();
-      filteredData = filterData.call(this);
-      updateScatterPlot(filteredData);
-      if(searchText){
-        updateHeadlineTable(filteredData);
+    function updateFilter() {
+      updateSearchText();
+      filterData.call(this);
+      if (searchText) {
+        updateScatterPlot();
+        updateHeadlineTable();
         showHeadlineTable();
-      }
-      else {
+      } else {
+        clearScatterPlot();
         clearHeadlineTable();
       }
     }
 
     // Search functionality
     d3.select("#searchBox").on("input change", updateFilter);
-
 
     // Event listener for the set filter button
     window.setFilterText = function(text) {
@@ -283,10 +289,13 @@ document.addEventListener("DOMContentLoaded", function() {
     // Event listener for the clear button
     document.getElementById("clearButton").addEventListener("click", function() {
       document.getElementById("searchBox").value = ""; // Clear the search box
-      filteredData = filterData.call(this);
-      updateScatterPlot(filteredData);
-      clearHeadlineTable();
+      updateSearchText();
+      filteredData = data; // reset data
+      clearScatterPlot(); // reset scatter plot
+      clearHeadlineTable(); // hide headline table
     });
+
+    clearScatterPlot();
   }).catch(function(error) {
     console.log(error);
   });

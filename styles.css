@@ -90,10 +90,33 @@ div#chart {
 }
 
 .dot {
-    fill: blue;
+    fill: orange;
     fill-opacity: 0.1;
 }
 
+.dot.unfiltered-dot {
+    fill: gray;
+    fill-opacity: 0.05;
+}
+
+.filtered-dot {
+    fill: orange;
+    fill-opacity: .8;
+    stroke-width: 1px;
+    stroke:#333;
+}
+
+.highlighted-dot {
+    fill: orange;
+    fill-opacity: 1;
+    stroke:#333;
+    stroke-width: 3px;
+    border: black 1px solid;
+}
+
+.highlighted-row {
+    background-color: rgba(255, 165, 0, 0.4);
+}
 
 .hidden {
     display: none;
@@ -124,7 +147,8 @@ div#chart {
 
 /* Style for highlighted search query */
 .highlight {
-    background-color: yellow;
+    /* bold */
+    font-weight: bold;
   }
 
 /* Scrollable headline table */
@@ -181,15 +205,4 @@ div#chart {
     #headline-table td {
         width: 100%;
     }
-}
-
-.highlighted-dot {
-    fill: orange;
-    fill-opacity: .8;
-    stroke:#333;
-    border: black 1px solid;
-}
-
-.highlighted-row {
-    background-color: rgba(255, 165, 0, 0.4);
 }
