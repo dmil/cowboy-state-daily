@@ -44,8 +44,7 @@ document.addEventListener("DOMContentLoaded", function() {
     .attr("r", 5)
     .attr("title", d => d.title)
     .on("mouseover", handleMouseOver)
-    .on("mouseout", handleMouseOut)
-    .on("click", handleClick);
+    .on("mouseout", handleMouseOut);
 
     // Tooltip functions
 
@@ -121,11 +120,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
       d3.select(".tooltip").remove();
     }
-  
-    // Click function
-    function handleClick(d) {
-      window.open(d.url, "_blank");
-    }
 
     // Create fucntion to filter datapoints based on text box contents
     function filterData() {
@@ -158,8 +152,7 @@ document.addEventListener("DOMContentLoaded", function() {
         .attr("cy", d => yScale(d.y))
         .attr("r", 5)
         .on("mouseover", handleMouseOver)
-        .on("mouseout", handleMouseOut)
-        .on("click", handleClick);
+        .on("mouseout", handleMouseOut);
 
       dotsUpdate.exit().remove();
 
