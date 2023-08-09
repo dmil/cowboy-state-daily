@@ -264,7 +264,7 @@ document.addEventListener("DOMContentLoaded", function() {
     function clearHeadlineTable() {
       const tableBody = d3.select("#headline-table-body");
       tableBody.selectAll("tr").remove();
-      d3.select("#headline-table").classed("hidden", true);
+      d3.select("#headline-table-wrapper").classed("hidden", true);
     }
 
     // show headline table
