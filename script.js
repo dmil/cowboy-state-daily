@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
       // make the dot bigger and highlight it
       d3.select(this)
-        .attr("r", 10)
+        .attr("r", heightRaw/50)
         .classed("highlighted-dot", true)
         .raise();
 
@@ -252,7 +252,7 @@ document.addEventListener("DOMContentLoaded", function() {
         correspondingDot.each(function(d) {
           d3.select(this)
             .classed("highlighted-dot", false)
-            .attr("r", 5);
+            .attr("r", heightRaw/100);
 
           const correspondingRow = d3.select(`#headline-table tbody tr[data-title="${dataPoint.title}"]`);
           correspondingRow.classed("highlighted-row", false);
