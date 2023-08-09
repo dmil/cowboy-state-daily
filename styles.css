@@ -175,7 +175,8 @@ div#chart {
     max-height: 400px; /* Set a maximum height for the table */
     max-width: 800px;
     margin: 0 auto;
-    padding: 0 auto;
+    margin-bottom: 40px;
+    padding: auto;
 }
 
   /* Left-align table headers */
