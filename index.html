@@ -32,18 +32,20 @@
     </div>
 
     <div id="chart"></div>
-    <div id="headline-table" class="hidden">
-      <table>
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Date</th>
-          </tr>
-        </thead>
-        <tbody id="headline-table-body"></tbody>
-      </table>
+    <div id="headline-table-wrapper" class="hidden">
+      <p class="instructions">Hover on a headline to see its location in the semantic map above.</p>
+      <div id="headline-table">  
+        <table>
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody id="headline-table-body"></tbody>
+        </table>
+      </div>
     </div>
-    
     <div id="methodology-box">
       <h3>Methodology</h3>
       <p>Articles were collected from Cowboy State Daily and converted to text embeddings using OpenAI's <a href="https://platform.openai.com/docs/guides/embeddings">embeddings API endpoint</a>. The distances between embeddings were then visualized in a <a href="https://scikit-learn.org/stable/modules/generated/sklearn.manifold.TSNE.html">two-dimensional t-sne plot</a> using the scikit-learn package in Python. A two-dimenional hoverable scatter plot was then generated in D3 with the help of Open AI's ChatGPT 3.5 using the following prompt:</p>

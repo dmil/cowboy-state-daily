@@ -44,10 +44,15 @@ blockquote {
     margin-right: 10%;
 }
 
-#title > p.instructions {
-    /* italics */
+p.instructions {
     font-style: italic;
-    /* smaller font */
+    font-size: 14px;   
+    margin: 0 auto; 
+    padding: 0 auto;
+}
+
+#title > p.instructions {
+    font-style: italic;
     font-size: 14px;   
     margin: auto; 
     padding: 10px;
@@ -164,6 +169,13 @@ div#chart {
     margin: 0 auto; /* Center horizontally */
     border: 1px solid #ccc; /* Add a border to indicate scrollable area */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a shadow to indicate scrollable area */
+}
+
+#headline-table-wrapper {
+    max-height: 400px; /* Set a maximum height for the table */
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 auto;
 }
 
   /* Left-align table headers */

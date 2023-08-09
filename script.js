@@ -269,7 +269,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // show headline table
     function showHeadlineTable() {
-      d3.select("#headline-table").classed("hidden", false);
+      d3.select("#headline-table-wrapper").classed("hidden", false);
     }
 
     // Load the data
