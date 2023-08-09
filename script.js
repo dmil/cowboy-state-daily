@@ -17,7 +17,15 @@ document.addEventListener("DOMContentLoaded", function() {
       bottom: 40,
       left: 50
     };
-    const widthRaw = 800;
+
+    // check if the window width is less than 800px
+    let widthRaw;
+    if (window.innerWidth < 800) {
+      widthRaw = window.innerWidth;
+    } else {
+      widthRaw = 800;
+    }
+
     const heightRaw = widthRaw / 8 * 5;
     const width = widthRaw - margin.left - margin.right;
     const height = heightRaw - margin.top - margin.bottom;
@@ -49,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function() {
       .attr("class", "dot")
       .attr("cx", d => xScale(d.x))
       .attr("cy", d => yScale(d.y))
-      .attr("r", 5)
+      .attr("r", heightRaw/100)
       .attr("title", d => d.title)
       .on("mouseover", handleMouseOver)
       .on("mouseout", handleMouseOut);
