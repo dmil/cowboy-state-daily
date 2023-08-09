@@ -129,11 +129,16 @@ div#chart {
 
 /* Style for the search box and clear button container */
 .search-container {
-    position: relative;
-    flex-direction: row; /* Stack the items vertically */
-    align-items: center; /* Center the items horizontally within .search-container */
-    margin: 0 auto;
-}
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0; /* Make the container full width */
+    background-color: white; /* Adjust as needed */
+    padding: 10px 0; /* Add padding for spacing */
+    z-index: 100; /* Ensure it's above other content */
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */}
 
 /* Style for the clear button */
 #clearButton {
