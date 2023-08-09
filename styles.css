@@ -217,4 +217,8 @@ div#chart {
     #headline-table td {
         width: 100%;
     }
+
+    #headline-table th {
+        display: none;
+    }
 }
