@@ -278,9 +278,11 @@ document.addEventListener("DOMContentLoaded", function() {
       
       filterData.call(this);
       if (searchText) {
+        if (urlParams.has('hideChart')) {
         // show the "mentioning span"
-        document.getElementById("mentioning").classList.remove("hidden");
-        document.getElementById("searchTermHeadline").innerHTML = document.getElementById("searchBox").value;
+          document.getElementById("mentioning").classList.remove("hidden");
+          document.getElementById("searchTermHeadline").innerHTML = document.getElementById("searchBox").value;
+        }
         updateScatterPlot();
         updateHeadlineTable();
         showHeadlineTable();
@@ -303,14 +305,12 @@ document.addEventListener("DOMContentLoaded", function() {
     // Event listener for the clear button
     document.getElementById("clearButton").addEventListener("click", function() {
       document.getElementById("searchBox").value = ""; // Clear the search box
-      updateSearchText();
-      filteredData = data; // reset data
-      clearScatterPlot(); // reset scatter plot
-      clearHeadlineTable(); // hide headline table
+      updateFilter(); 
     });
 
     // Get the URL parameters
     const urlParams = new URLSearchParams(window.location.search);
+    clearScatterPlot();
 
     // Check if the "hideChart" parameter is present
     if (urlParams.has('hideChart')) {
@@ -320,11 +320,16 @@ document.addEventListener("DOMContentLoaded", function() {
         element.style.display = 'none';
       });
       document.getElementById('methodology-box').style.display = 'none';
-      setFilterText('climate change');
+      document.getElementById("headline").innerHTML = "Cowboy State Daily Headlines <span id=\"mentioning\" class=\"hidden\"> Mentioning \"<span id=\"searchTermHeadline\"></span>\"</span>"
       document.getElementById("searchTermHeadline").innerHTML = searchText;
+      setFilterText('climate change');
+      updateFilter();
+
+    } else {
+      // set h1 to "Explore All Of Cowboy State Daily's Coverage 
+      document.getElementById("headline").innerHTML = "Explore All Of Cowboy State Daily's Coverage";      
     }
 
-    clearScatterPlot();
   }).catch(function(error) {
     console.log(error);
   });
