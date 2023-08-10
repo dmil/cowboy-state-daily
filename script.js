@@ -288,9 +288,11 @@ document.addEventListener("DOMContentLoaded", function() {
         showHeadlineTable();
       } else {
         // hide the "mentioning span"
-        document.getElementById("mentioning").classList.add("hidden");
         clearScatterPlot();
         clearHeadlineTable();
+        if (urlParams.has('hideChart')) {
+          document.getElementById("mentioning").classList.add("hidden");
+        }
       }
     }
 
