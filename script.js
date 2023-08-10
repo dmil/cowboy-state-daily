@@ -308,11 +308,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Check if the "hideChart" parameter is present
     if (urlParams.has('hideChart')) {
-      // Hide the chart container
-      document.getElementById('chart').style.display = 'none';
+      // Hide elements with the "chart" class
+      const chartElements = document.querySelectorAll('.chart');
+      chartElements.forEach(element => {
+        element.style.display = 'none';
+      });
       document.getElementById('methodology-box').style.display = 'none';
       setFilterText('climate change');
-    };
+    }
 
     clearScatterPlot();
   }).catch(function(error) {
