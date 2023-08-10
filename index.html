@@ -19,8 +19,7 @@
   <div class="wrapper">
     <div id="title">
       <h1>Explore All Of Cowboy State Daily's Coverage</h1>
-      <p>Articles published by Cowboy State Daily through July 21, 2023.<br/>Articles that are semantically similar appear closer together.</p>
-      
+      <p>Articles published by Cowboy State Daily through July 21, 2023.</p>
       <!-- Add buttons with the specified filter terms -->
       <button class="filterButton" onclick="setFilterText('climate change')">Climate Change</button>
       <button class="filterButton" onclick="setFilterText('fossil fuel')">Fossil Fuel</button>
@@ -39,7 +38,9 @@
       <input type="text" id="searchBox" placeholder="Search Headlines">
       <button id="clearButton">&#10006;</button>
     </div>
-    <div id="chart"></div>
+    <div id="chart">
+      <p>Articles that are semantically similar appear closer together in the chart below.</p>
+    </div>
     <div id="headline-table-wrapper" class="hidden">
       <p class="instructions">Hover on a headline to see its location in the semantic map above.</p>
       <div id="headline-table">  

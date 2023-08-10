@@ -303,6 +303,17 @@ document.addEventListener("DOMContentLoaded", function() {
       clearHeadlineTable(); // hide headline table
     });
 
+    // Get the URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+
+    // Check if the "hideChart" parameter is present
+    if (urlParams.has('hideChart')) {
+      // Hide the chart container
+      document.getElementById('chart').style.display = 'none';
+      document.getElementById('methodology-box').style.display = 'none';
+      setFilterText('climate change');
+    };
+
     clearScatterPlot();
   }).catch(function(error) {
     console.log(error);
