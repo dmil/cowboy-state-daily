@@ -239,3 +239,7 @@ div#chart {
     /* orange text */
     color: orange;
 }
+
+#transButtons {
+    padding-top: 10px;
+}

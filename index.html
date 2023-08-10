@@ -21,15 +21,24 @@
       <h1 id="headline"></h1>
       <p>Articles published by Cowboy State Daily through July 21, 2023.</p>
       <!-- Add buttons with the specified filter terms -->
-      <button class="filterButton" onclick="setFilterText('climate change')">Climate Change</button>
-      <button class="filterButton" onclick="setFilterText('fossil fuel')">Fossil Fuel</button>
-      <button class="filterButton" onclick="setFilterText('wind')">Wind</button>
-      <button class="filterButton" onclick="setFilterText('solar')">Solar</button>
-      <button class="filterButton" onclick="setFilterText('oil')">Oil</button>
-      <button class="filterButton" onclick="setFilterText('gas')">Gas</button>
-      <button class="filterButton" onclick="setFilterText('energy')">Energy</button>
-      <button class="filterButton" onclick="setFilterText('coal')">Coal</button>
-      
+      <div id="energyButtons">
+        <button class="filterButton" onclick="setFilterText('climate change')">Climate Change</button>
+        <button class="filterButton" onclick="setFilterText('fossil fuel')">Fossil Fuel</button>
+        <button class="filterButton" onclick="setFilterText('wind')">Wind</button>
+        <button class="filterButton" onclick="setFilterText('solar')">Solar</button>
+        <button class="filterButton" onclick="setFilterText('oil')">Oil</button>
+        <button class="filterButton" onclick="setFilterText('gas')">Gas</button>
+        <button class="filterButton" onclick="setFilterText('energy')">Energy</button>
+        <button class="filterButton" onclick="setFilterText('coal')">Coal</button>
+      </div>
+
+      <div id="transButtons">
+        <button class="filterButton" onclick="setFilterText('transgender')">Transgender</button>
+        <button class="filterButton" onclick="setFilterText('trans')">Trans</button>
+        <button class="filterButton" onclick="setFilterText('biological')">Biological</button>
+        <button class="filterButton" onclick="setFilterText('groom')">Groom</button>
+        <button class="filterButton" onclick="setFilterText('queer')">Queer</button>
+      </div>
       <!-- Add a search box and a button for clearing the search -->
       <p class="instructions">Click on a button above or type a phrase in the search box below.</p>
       
