@@ -275,12 +275,18 @@ document.addEventListener("DOMContentLoaded", function() {
     // Load the data
     function updateFilter() {
       updateSearchText();
+      
       filterData.call(this);
       if (searchText) {
+        // show the "mentioning span"
+        document.getElementById("mentioning").classList.remove("hidden");
+        document.getElementById("searchTermHeadline").innerHTML = document.getElementById("searchBox").value;
         updateScatterPlot();
         updateHeadlineTable();
         showHeadlineTable();
       } else {
+        // hide the "mentioning span"
+        document.getElementById("mentioning").classList.add("hidden");
         clearScatterPlot();
         clearHeadlineTable();
       }
@@ -315,6 +321,7 @@ document.addEventListener("DOMContentLoaded", function() {
       });
       document.getElementById('methodology-box').style.display = 'none';
       setFilterText('climate change');
+      document.getElementById("searchTermHeadline").innerHTML = searchText;
     }
 
     clearScatterPlot();
