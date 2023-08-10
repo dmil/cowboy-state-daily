@@ -19,6 +19,8 @@ h2 {
 
 input {
     margin: 10px;
+    font-size: 18px; /* Adjust the font size as needed */
+    padding: 10px; /* Adjust the padding as needed */
 }
 
 blockquote {
@@ -134,7 +136,7 @@ div#chart {
     left: 0;
     right: 0; /* Make the container full width */
     background-color: white; /* Adjust as needed */
-    padding: 10px 0; /* Add padding for spacing */
+    padding: 0; /* Add padding for spacing */
     z-index: 100; /* Ensure it's above other content */
     display: flex;
     justify-content: center; /* Center horizontally */
@@ -146,7 +148,7 @@ div#chart {
     right: 15px;
     top: 50%;
     transform: translateY(-50%); */
-    font-size: 16px;
+    font-size: 24px;
     background: none;
     border: none;
     cursor: pointer;
@@ -226,4 +228,8 @@ div#chart {
     #headline-table th {
         display: none;
     }
+}
+
+.filterButton {
+    font-size: 18px; /* Adjust the font size as needed */   
 }

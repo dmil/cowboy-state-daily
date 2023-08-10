@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-7K1LTYGHH6"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-7K1LTYGHH6');
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Explore All Of Cowboy State Daily's Coverage</title>
@@ -13,14 +22,14 @@
       <p>Articles published by Cowboy State Daily through July 21, 2023.<br/>Articles that are semantically similar appear closer together.</p>
       
       <!-- Add buttons with the specified filter terms -->
-      <button onclick="setFilterText('climate change')">Climate Change</button>
-      <button onclick="setFilterText('fossil fuel')">Fossil Fuel</button>
-      <button onclick="setFilterText('wind')">Wind</button>
-      <button onclick="setFilterText('solar')">Solar</button>
-      <button onclick="setFilterText('oil')">Oil</button>
-      <button onclick="setFilterText('gas')">Gas</button>
-      <button onclick="setFilterText('energy')">Energy</button>
-      <button onclick="setFilterText('coal')">Coal</button>
+      <button class="filterButton" onclick="setFilterText('climate change')">Climate Change</button>
+      <button class="filterButton" onclick="setFilterText('fossil fuel')">Fossil Fuel</button>
+      <button class="filterButton" onclick="setFilterText('wind')">Wind</button>
+      <button class="filterButton" onclick="setFilterText('solar')">Solar</button>
+      <button class="filterButton" onclick="setFilterText('oil')">Oil</button>
+      <button class="filterButton" onclick="setFilterText('gas')">Gas</button>
+      <button class="filterButton" onclick="setFilterText('energy')">Energy</button>
+      <button class="filterButton" onclick="setFilterText('coal')">Coal</button>
       
       <!-- Add a search box and a button for clearing the search -->
       <p class="instructions">Click on a button above or type a phrase in the search box below.</p>
